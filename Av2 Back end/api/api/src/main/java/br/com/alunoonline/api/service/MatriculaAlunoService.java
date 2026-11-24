@@ -59,11 +59,9 @@ public class MatriculaAlunoService {
         }
     }
     public void destrancarMatricula(Long id) {
-        // Busca Matrícula antes de atualizar, se não existe - Cód 404(NOT FOUND)
         MatriculaAluno matriculaAluno = matriculaAlunoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        // Só destranca se estiver trancada
         if (matriculaAluno.getStatus().equals(MatriculaAlunoStatusEnum.TRANCADO)) {
             matriculaAluno.setStatus(MatriculaAlunoStatusEnum.MATRICULADO);
             matriculaAlunoRepository.save(matriculaAluno);
